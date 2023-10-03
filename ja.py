@@ -86,3 +86,6 @@ with col1:
 
     else:
         st.write('Reset')
+
+with col2:
+    st.button('test')
