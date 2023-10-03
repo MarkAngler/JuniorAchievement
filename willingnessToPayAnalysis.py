@@ -29,4 +29,3 @@ def calculate_and_print_optimal_price(survey_data, confidence_level=0.95):
 
 
 
-# In the context of your data, the 95% confidence interval means that you can be 95% confident that the true average price people are willing to pay falls within this range. This is a way to understand the reliability of your sample mean; it gives you an idea of how much you can expect this sample mean to fluctuate if you were to collect more data.
