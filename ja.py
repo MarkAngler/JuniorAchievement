@@ -88,5 +88,6 @@ with marketResearch:
         st.write('Reset')
 
 with financials:
+    st.subheader('Financials')
     cogs = st.number_input('Cost of Goods Sold: ')
     price = st.number_input('Price: ')
