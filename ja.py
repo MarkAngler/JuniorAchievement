@@ -66,6 +66,7 @@ with marketResearch:
         st.metric('mean price: ',mean_price)
         st.metric('stdDev: ', std_deviation)
         st.metric('95% Confidence: ',str(confidence_interval))
+        st.caption(f"""In the context of your data, the 95% confidence interval means that you can be 95% confident that the true average price people are willing to pay falls within this range. This is a way to understand the reliability of your sample mean; it gives you an idea of how much you can expect this sample mean to fluctuate if you were to collect more data.""")
         plt.figure(figsize=(10, 6))
         plt.subplot(1, 2, 2)
         plt.hist(actual_data, bins=20, edgecolor='black', alpha=0.7)
@@ -91,3 +92,4 @@ with financials:
     st.subheader('Financials')
     cogs = st.number_input('Cost of Goods Sold: ')
     price = st.number_input('Price: ')
+
