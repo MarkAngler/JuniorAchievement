@@ -12,16 +12,16 @@ st.set_page_config(layout="wide")
 st.title('Junior Achievement')
 
 
-col1, col2 = st.columns(2)
+marketResearch, financials = st.columns(2)
 
-with col1:
-    st.title('Survey Data')
+with marketResearch:
+    st.subheader('Survey Data')
     surveyed = st.number_input('Total Surveyed: ')
     wouldBuy = st.number_input('Amount that said they would buy: ')
     marketSize = st.number_input('Target Market Size: ')
 
     # Streamlit app
-    st.title('Willingness to Pay Survey Data')
+    st.subheader('Willingness to Pay Survey Data')
 
     # User input for the number of price points
     num_price_points = st.slider('Number of Different Price Points:', min_value=1, max_value=10)
@@ -65,7 +65,7 @@ with col1:
         actual_data = [price for price, count in priceData.items() for _ in range(count)]
         st.metric('mean price: ',mean_price)
         st.metric('stdDev: ', std_deviation)
-        st.write('95% Confidence: ',confidence_interval)
+        st.metric('95% Confidence: ',str(confidence_interval))
         plt.figure(figsize=(10, 6))
         plt.subplot(1, 2, 2)
         plt.hist(actual_data, bins=20, edgecolor='black', alpha=0.7)
@@ -87,5 +87,6 @@ with col1:
     else:
         st.write('Reset')
 
-with col2:
-    st.button('test')
+with financials:
+    cogs = st.number_input('Cost of Goods Sold: ')
+    price = st.number_input('Price: ')
