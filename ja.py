@@ -7,6 +7,8 @@ import bayesianScenarios as bs
 import willingnessToPayAnalysis as wtpa
 import matplotlib.pyplot as plt
 
+
+st.set_page_config(layout="wide")
 st.title('Junior Achievement')
 
 
