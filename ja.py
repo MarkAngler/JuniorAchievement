@@ -16,9 +16,16 @@ marketResearch, financials = st.columns(2)
 
 with marketResearch:
     st.subheader('Survey Data')
+
     surveyed = st.number_input('Total Surveyed: ')
-    wouldBuy = st.number_input('Amount that said they would buy: ')
     marketSize = st.number_input('Target Market Size: ')
+
+    numProducts = st.slider('Number of Different Products:', min_value=1, max_value=10)
+    products = {}
+    for product in range(numProducts):
+
+        wouldBuy = st.number_input('Amount that said they would buy: ', key=f'wouldBuy_{product}')
+        products[product] = wouldBuy
 
     # Streamlit app
     st.subheader('Willingness to Pay Survey Data')
@@ -40,25 +47,24 @@ with marketResearch:
     if st.button('Calculate'):
         data_load_state = st.text('Loading data...')
 
-        x,y,worst_case, expected_case, best_case = bs.calcScenarios(surveyed=surveyed,yeses=wouldBuy,marketSize=marketSize)
+        for product,results in products.items():
+            x,y,worst_case, expected_case, best_case = bs.calcScenarios(surveyed=surveyed,yeses=results,marketSize=marketSize)
 
-
-
-        # Plotting
-        st.metric('Worst Case: ', worst_case)
-        st.metric('Expected Case: ', expected_case)
-        st.metric('Best Case: ', best_case)
-        plt.figure(figsize=(10, 6))
-        plt.plot(x, y, label='Posterior distribution')
-        plt.axvline(x=worst_case, color='r', linestyle='--', label='Worst-case Scenario')
-        plt.axvline(x=expected_case, color='g', linestyle='--', label='Median-case Scenario')
-        plt.axvline(x=best_case, color='b', linestyle='--', label='Best-case Scenario')
-        plt.title('Bayesian Posterior Distribution of "Yes" Probability')
-        plt.xlabel('Probability of "Yes"')
-        plt.ylabel('Density')
-        plt.legend()
-        
-        st.pyplot(plt)
+            # Plotting
+            st.metric('Worst Case: ', worst_case)
+            st.metric('Expected Case: ', expected_case)
+            st.metric('Best Case: ', best_case)
+            plt.figure(figsize=(10, 6))
+            plt.plot(x, y, label='Posterior distribution')
+            plt.axvline(x=worst_case, color='r', linestyle='--', label='Worst-case Scenario')
+            plt.axvline(x=expected_case, color='g', linestyle='--', label='Median-case Scenario')
+            plt.axvline(x=best_case, color='b', linestyle='--', label='Best-case Scenario')
+            plt.title('Bayesian Posterior Distribution of "Yes" Probability')
+            plt.xlabel('Probability of "Yes"')
+            plt.ylabel('Density')
+            plt.legend()
+            
+            st.pyplot(plt)
 
         # Willingness to Pay Plot
         mean_price, std_deviation, confidence_interval = wtpa.calculate_and_print_optimal_price(priceData)
