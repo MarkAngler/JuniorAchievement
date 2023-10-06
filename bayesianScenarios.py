@@ -34,4 +34,15 @@ def calcScenarios(surveyed,yeses,marketSize):
     expected_sales_expected_case = expected_case * target_market_size
     expected_sales_best_case = best_case * target_market_size
 
-    return x,y,expected_sales_worst_case, expected_sales_expected_case, expected_sales_best_case
+    return x,y,expected_sales_worst_case, expected_sales_expected_case, expected_sales_best_case, expected_case
+
+
+def calculate_exclusive_choice_probabilities(utilities):
+    # Calculate the probabilities of choosing each product exclusively
+    utility_values = list(utilities.values())
+    # Calculate the probabilities of choosing each product exclusively
+    exp_utilities = np.exp(utility_values)
+    sum_exp_utilities = np.sum(exp_utilities)
+    probabilities = exp_utilities / sum_exp_utilities
+    
+    return probabilities

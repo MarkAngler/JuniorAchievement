@@ -47,8 +47,11 @@ with marketResearch:
     if st.button('Calculate'):
         data_load_state = st.text('Loading data...')
 
+        productExpectations = {}
         for product,results in products.items():
-            x,y,worst_case, expected_case, best_case = bs.calcScenarios(surveyed=surveyed,yeses=results,marketSize=marketSize)
+            x,y,worst_case, expected_case, best_case, expectedPercent = bs.calcScenarios(surveyed=surveyed,yeses=results,marketSize=marketSize)
+            productExpectations[product] = expectedPercent
+            print(productExpectations)
 
             # Plotting
             st.metric('Worst Case: ', worst_case)
@@ -65,6 +68,11 @@ with marketResearch:
             plt.legend()
             
             st.pyplot(plt)
+
+        if numProducts > 1:
+            multiProductProbabilities = bs.calculate_exclusive_choice_probabilities(productExpectations)
+            st.caption(multiProductProbabilities)
+
 
         # Willingness to Pay Plot
         mean_price, std_deviation, confidence_interval = wtpa.calculate_and_print_optimal_price(priceData)
