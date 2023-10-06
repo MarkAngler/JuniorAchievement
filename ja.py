@@ -12,7 +12,7 @@ st.set_page_config(layout="wide")
 st.title('Junior Achievement')
 
 
-marketResearch, financials = st.columns(2)
+marketResearch, explanations = st.columns(2)
 
 with marketResearch:
     st.subheader('Survey Data')
@@ -104,8 +104,44 @@ with marketResearch:
     else:
         st.write('Reset')
 
-with financials:
-    st.subheader('Financials')
-    cogs = st.number_input('Cost of Goods Sold: ')
-    price = st.number_input('Price: ')
+with explanations:
+    st.markdown("""
+                ### Bayesian Scenarios:
+
+Imagine you're trying to figure out how popular different flavors of ice cream are at your school. 
+You ask a bunch of students if they like vanilla or chocolate. Not everyone says yes, and you end up 
+with a mix of answers.
+
+Now, you want to use this info to predict how many ice creams you'd sell if you opened a little ice 
+cream stand. The Bayesian part helps you take the answers you got and make an educated guess.
+
+So, if you asked 100 people about vanilla and 40 said "Yes," you'd use some fancy math (Bayesian statistics) 
+to predict that maybe around 40% of all students would buy vanilla ice cream. The same goes for chocolate 
+or any other flavor.
+
+### Multinomial Logit Model:
+
+Now, let's say you realize something: What if some students who said they liked both vanilla and chocolate 
+end up buying just one? They can't eat both at the same time, right?
+
+Here's where the Multinomial Logit Model comes in. This is another fancy math thing that helps you figure 
+out what people would choose when they have more than one option they like.
+
+It's like asking, "Okay, if you like both vanilla and chocolate, which one would you pick if you could 
+only have one?" This model helps you adjust your earlier predictions so they're more accurate.
+
+### How They Work Together:
+
+First, you use the Bayesian stuff to get a basic idea of how many people like each flavor. Think of this 
+as your starting point. Then you use the Multinomial Logit Model to fine-tune those numbers based on the 
+fact that people might have to choose just one flavor.
+
+By combining these two methods, you get a more accurate prediction of how many ice creams of each flavor 
+you might sell if you set up a stand at your school.
+""")
+
+# with financials:
+#     st.subheader('Financials')
+#     cogs = st.number_input('Cost of Goods Sold: ')
+#     price = st.number_input('Price: ')
 
